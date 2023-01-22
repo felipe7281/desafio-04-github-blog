@@ -1,20 +1,28 @@
 import { SearchBar } from "../../components/Searchbar";
+import { useIssues } from "../../hooks/useIssues";
 import { Issue } from "../Issue/Index";
-import { HomeContainer } from "./types";
+import { HomeContainer, IssuesContainer } from "./types";
 
 export function Home() {
+
+    const {issues} = useIssues()
     
 
     return(
         <HomeContainer>
-            <span>
-                <p>Publicações</p>
-                <p>publicações</p>
-            </span>
+            <div>
+                <h1>Publicações</h1>
+                <p>{issues.length} publicações</p>
+            </div>
             <SearchBar />
-            
-            <Issue />
 
+            <IssuesContainer>
+            
+                <Issue />
+               
+                
+                
+            </IssuesContainer>
 
         </HomeContainer>
     )

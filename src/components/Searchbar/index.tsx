@@ -4,7 +4,8 @@ export function SearchBar() {
 
     return(
         <SearchBarContainer>
-            Searchbar
+            <input type="text"  placeholder="Buscar conteúdo"/>
+            
         </SearchBarContainer>
 
     )

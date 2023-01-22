@@ -8,8 +8,11 @@ export const HeaderContainer = styled.header`
 `
 
 export const HeaderBackground = styled.div`
+    display: flex;
+    align-items: flex-start;
     width: 90rem;
     height: 18.5rem;
+    
 
    
     
