@@ -15,6 +15,7 @@ interface IssuesProviderProps{
     number: number
     title: string
     body: string
+    created_at: number
  }
 
 export const IssuesContext = createContext({} as IssuesContextType);

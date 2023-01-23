@@ -5,6 +5,7 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    
   }
 
   :focus {
@@ -17,8 +18,9 @@ export const GlobalStyle = createGlobalStyle`
     color: ${(props) => props.theme['base-text']};
     -webkit-font-smoothing: antialiased;
   }
-  body, input, textarea, button {
+  body, input, textarea, button, a {
     font: 400 1rem "Nunito", sans-serif;
+    
   }
 
 

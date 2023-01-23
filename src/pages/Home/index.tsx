@@ -1,7 +1,9 @@
 import { SearchBar } from "../../components/Searchbar";
 import { useIssues } from "../../hooks/useIssues";
-import { Issue } from "../Issue/Index";
-import { HomeContainer, IssuesContainer } from "./types";
+import { IssueCard } from "../../components/IssueCard/Index";
+import { HomeContainer, IssuesContainer, PostsCounter, PostsCounterContainer, PostsCounterTItle } from "./types";
+import { Header } from "../../components/Header";
+import { ProfileArea } from "../../components/ProfileArea";
 
 export function Home() {
 
@@ -10,18 +12,17 @@ export function Home() {
 
     return(
         <HomeContainer>
-            <div>
-                <h1>Publicações</h1>
-                <p>{issues.length} publicações</p>
-            </div>
+
+            
+            <ProfileArea />
+            <PostsCounterContainer>
+                <PostsCounterTItle>Publicações</PostsCounterTItle>
+                <PostsCounter>{issues.length} publicações</PostsCounter>
+            </PostsCounterContainer>
             <SearchBar />
 
-            <IssuesContainer>
-            
-                <Issue />
-               
-                
-                
+            <IssuesContainer>      
+                <IssueCard />
             </IssuesContainer>
 
         </HomeContainer>
