@@ -5,36 +5,46 @@ import { IssueContainer, IssueContent } from "./styles";
 import {  formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useIssues } from "../../hooks/useIssues";
+import { IssuesProps } from "../../pages/Home/index";
 
 
+export interface PostProps  {
+    post: IssuesProps
+}
 
 
+export function IssueCard ({post}: PostProps) {
 
-export function IssueCard () {
-
-    const {issues} = useIssues()
+    
 
     
 
     return(
        <IssueContainer>
-            {issues.map(item => {
-                return (
-                    <a href="/issue" target="_blank">
-                        <IssueContent key={item.id}>
+            
+            
+               
+               
+                    <a href={`/issue/${post.number}`} target="_blank" key={post.id} >
+                        <IssueContent>
                             <section>
-                                <h1>{item.title}</h1>
-                                <p>{formatDistanceToNow(new Date(item.created_at), {
+                                <h1>{post.title}</h1>
+                                <p>{formatDistanceToNow(new Date(post.created_at), {
                                     addSuffix: true,
                                     locale: ptBR
                                 }) }</p>
                             </section>
                             
-                            <article>{String(item.body).slice(0, 180)}...</article>
+                            <article>{String(post.body).slice(0, 180)}...</article>
                         </IssueContent>
                     </a>
-                )
-            })}
+                
+
+
+            
+
+
+
            
         </IssueContainer>
         

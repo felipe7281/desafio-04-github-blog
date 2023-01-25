@@ -5,7 +5,7 @@ import { defaultTheme } from './styles/themes/default'
 import { BrowserRouter } from 'react-router-dom'
 import { Router } from './Router'
 import { GlobalStyle } from './styles/global'
-import { IssuesProvider } from './context/IssuesContext'
+// import { IssuesProvider } from './context/IssuesContext'
 
 
 export function App() {
@@ -14,11 +14,11 @@ export function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
         <BrowserRouter>
-        <IssuesProvider>
+        {/* <IssuesProvider> */}
           <Router />
        
           <GlobalStyle />
-        </IssuesProvider>
+        {/* </IssuesProvider> */}
         </BrowserRouter>
 
     </ThemeProvider>

@@ -1,11 +1,22 @@
+import { Spinner } from "../../../../components/Spinner";
+import { IssuesProps } from "../../../Home";
 import { IssueContentContainer } from "./styles";
 
-export function IssueContent() {
+interface PostHeaderProps {
+    postData: IssuesProps
+    isLoading: boolean
+}
+
+export function IssueContent({ postData, isLoading }: PostHeaderProps) {
 
     return(
 
         <IssueContentContainer>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad numquam dignissimos amet architecto, laborum placeat illo quidem hic, recusandae tempore a ab fugit nulla eligendi est enim officiis et eum.
+            {isLoading ? (<Spinner />) : (
+                <>
+                    {postData.body}
+                </>
+            )}
         </IssueContentContainer>
     )
 }

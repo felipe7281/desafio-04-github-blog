@@ -1,7 +1,8 @@
 
 import {  HeaderBackground, HeaderContainer} from "./types";
 
-import { ProfileArea } from "../ProfileArea";
+import logoSrc from "../../assets/headerBg.svg" 
+import logo from "../../assets/logo.svg" 
 
 
 
@@ -9,10 +10,12 @@ export function Header() {
 
 
     return(
-        <><HeaderContainer>
+        <>
+        <HeaderContainer>
 
             <HeaderBackground>
-                <img src={"src/assets/cover.png"} width={1440} height={296}></img>
+                <img src={logoSrc} width={1440} height={296}></img>
+                
                 
             </HeaderBackground>
             
