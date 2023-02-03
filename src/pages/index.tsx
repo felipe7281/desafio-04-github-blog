@@ -2,6 +2,8 @@ import Image from "next/image"
 
 import Link from "next/link"
 
+import Head from "next/head"
+
 
 
 import { HomeContainer, Product } from "../styles/pages/home"
@@ -28,6 +30,8 @@ interface HomeProps{
     price: string
   }
 }
+
+
 
 
 
@@ -59,8 +63,13 @@ const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
 });
   
   return (
+    <>
+     <Head>
+        <title>Ignite Shop - Home</title>
+      </Head>
+
     <HomeContainer ref={sliderRef} className="keen-slider">  
-      
+     
         {products.map(product => {
           return(
             <Link key={product.id} href={`/product/${product.id}`} prefetch={false}>
@@ -101,6 +110,7 @@ const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
 )}
 
     </HomeContainer>
+    </>
   )
 }
 
