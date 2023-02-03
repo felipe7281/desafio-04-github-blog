@@ -15,8 +15,11 @@ export const Header = styled('header', {
     maxWidth: 1180,
     margin: '0 auto',
     display: 'flex',
-    justifyContent:'space-between',
+    justifyContent:'center',
     alignItems: 'center',
+    button: {
+        marginLeft: 'auto',
+    }
     
 })
 
@@ -33,6 +36,12 @@ export const ShopCartButton = styled('button', {
     position: 'relative',
     cursor: 'inherit',
     backgroundColor: '$gray800',
+    color: '$gray500',
+
+    "&:disabled": {
+        opacity: 0.6,
+        cursor: 'not-allowed',
+    },
 
     span: {
         position: 'absolute',
