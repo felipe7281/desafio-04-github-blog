@@ -1,34 +1,24 @@
 import Image from "next/image"
-
 import Link from "next/link"
-
 import Head from "next/head"
-
-
 
 import { HomeContainer, Product } from "../styles/pages/home"
 
 import React, { useState } from 'react'
+
 import 'keen-slider/keen-slider.min.css'
 import { useKeenSlider } from 'keen-slider/react'
 
 
-
-
-
-
-import { Arrow } from "../assets/components/Arrow"
 import { stripe } from "../lib/stripe"
 import {  GetStaticProps } from "next"
 import Stripe from "stripe"
+import { CartButton } from "../components/CartButton"
+import { useCart } from "../hooks/useCart"
+import { IProduct } from "../context/CartContext"
 
 interface HomeProps{
-  products: {
-    id: string;
-    name: string;
-    imageUrl: string;
-    price: string
-  }
+  products: IProduct[];
 }
 
 
@@ -36,13 +26,8 @@ interface HomeProps{
 
 
 export default function Home({products} : HomeProps) {
-// const [ sliderRef, instanceRef ] = useKeenSlider({
-//   slides: {
-//     perView: 3,
-//     spacing: 48,
-    
-//   }
-// })
+
+const {addToCart, checkIfItemAlreadyExists} = useCart();
 
 const [currentSlide, setCurrentSlide] = useState(0);
 const [loaded, setLoaded] = useState(false);
@@ -61,6 +46,12 @@ const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
       setLoaded(true);
   },
 });
+
+  function handleAddToCart(e: MouseEvent, product: IProduct) {
+    e.preventDefault();
+    addToCart(product);
+
+  }
   
   return (
     <>
@@ -77,8 +68,16 @@ const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
                 <Image src={product.imageUrl} width={520} height={480} alt={""}/>
 
                 <footer>
-                  <strong>{product.name}</strong>
-                  <span>{product.price}</span>
+                  <div>
+                    <strong>{product.name}</strong>
+                    <span>{product.price}</span>
+                  </div>
+                  <CartButton 
+                    color="green" 
+                    size="large" 
+                    onClick={(e) => handleAddToCart(e, product)}
+                    disabled={checkIfItemAlreadyExists(product.id)}
+                  />
                 </footer>
               </Product>
             </Link>
@@ -87,27 +86,7 @@ const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
 
        
 
-        {loaded && instanceRef.current && (
-  <>
-      <Arrow
-          left
-          onClick={(e: { stopPropagation: () => any }) =>
-              e.stopPropagation() || instanceRef.current?.prev()
-          }
-          disabled={currentSlide === 0}
-      />
-
-      <Arrow
-          onClick={(e: { stopPropagation: () => any }) =>
-              e.stopPropagation() || instanceRef.current?.next()
-          }
-          disabled={
-              currentSlide ===
-              instanceRef.current.track.details.slides.length - 1
-          }
-      />
-  </>
-)}
+    
 
     </HomeContainer>
     </>
@@ -132,6 +111,8 @@ export const getStaticProps: GetStaticProps = async() => {
         style: 'currency',
         currency: 'BRL',
       }).format(price.unit_amount / 100),
+      numberPrice: price.unit_amount / 100,
+      defaultPriceId: price.id,
     }
   })
 

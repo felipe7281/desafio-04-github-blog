@@ -7,36 +7,33 @@ import Image from 'next/image'
 import { Handbag } from 'phosphor-react'
 import Link from 'next/link'
 import * as Dialog from '@radix-ui/react-dialog';
-import { ShopCart } from './shopcart'
+import { Cart } from '../components/Cart'
+import { CartContextProvider } from '../context/CartContext'
+import { useRouter } from 'next/router'
+
 
 globalStyles()
 
 export default function App({ Component, pageProps }: AppProps) {
+  const {pathname} = useRouter();
 
-  const cartQuantity = 1
+  const showCartButton = pathname !== '/success';
+
+
   
   return(
+    <CartContextProvider>
       <Container>
         <Header>
           <Link href="/">
             <Image src={logoImg} alt="" />
           </Link>
-          <Dialog.Root>
-            <Dialog.Trigger asChild>
-              <ShopCartButton>
-                {cartQuantity>=1 && <span>{cartQuantity}</span>}
-                <Handbag weight='bold' size={24}  />
-              </ShopCartButton>
-            </Dialog.Trigger>
-            <Dialog.Portal>
-              <Dialog.Content>
-                <ShopCart/>
-              </Dialog.Content>
-            </Dialog.Portal>
-          </Dialog.Root>
+          {showCartButton && <Cart />}
+          
         </Header>
         <Component {...pageProps} />
         
       </Container>
+    </CartContextProvider>
   )
 }
